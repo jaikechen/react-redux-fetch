@@ -3,15 +3,15 @@ A fetching hook for react, it uses redux to manage state, so the state can be sh
 # what does r2 means
 r2 mean react and redux, I would like call this package react-redux-fetch, but the name was taken.
 
-#### Why use this hook?
+# Why use this hook?
 
 1. it encapsulates common operations for invoke web api, like adding http header,  converting object to Json
 2. it manage error, loading, succeed states for the fetching operation
 3. because it redux to manage state, the state can be shared between different component
 
-### Installation via NPM
+# Installation via NPM
 ```npm i r2fetch```
-#### if you have redux in your project, 
+## if you have redux in your project, 
 import fetchReducer and fetchMiddleware, then added them to your createStore function
 ```typescript
 import {fetchMiddleware, fetchReducer} from 'r2fetch'
@@ -24,7 +24,7 @@ export const rootStore = createStore(
 );
 
 ```
-#### if you don't have redux in your project 
+## if you don't have redux in your project 
 import rootStore, then wrap you component in the redux provider
 
 ```typescript
@@ -38,14 +38,34 @@ ReactDOM.render(
   document.getElementById('root')
 );
 ```
+# hook definition
+``` typescript
+export function useFetchRequest<T> (dispatchInUseEffect:boolean  ,method:FetchMethods,url:string, postDate:any=undefined) 
+```
 
-### Examples
-suppose you want display posts from https://jsonplaceholder.typicode.com/posts'
-you want use 2 components to display the result
+the hook returns an array, the first element is the state of the hook, the second element is a function, call the function to dispatch another request.
+``` typescript
+[fetchState<T>, (postDate:any)=>{} ]
+```
+the hook save the state of calling different web APIs separately, it differentiates states by url + method. which means
+- you can call the hook multiple times for different web api   
+- if you call same webapi in different components, the state is shared between the components.
+
+# Examples
+## use cases
+suppose you want display posts from https://jsonplaceholder.typicode.com/posts
+for some reason, you want use two components to display the result
 - Header component displays counts and a refresh button
 - App Component displays post title list.
 
-With r2fetch managing states, the 2 components programming is simple
+
+## flow
+- in Header, it call useFetchRequest, set the first parameter (dispatchInUseEffect) to true, the hook will dispatch a fetch request when the component is initializing
+- in App, it call useFetchRequest, dispatchInUseEffect to false, the hook will not dispatch a fetch when the component is initializing
+- the hook updates the status to loading, both Header and App components are re-rendered, because both of them are using the hook and are calling same web API
+- when the hook gets date from web api, it set state.status to 'Succeed', in Header, it display the post count
+- if something is wrong, the hook set state.status to 'Fail', both Header and App are re-rendered, App display an Error
+
 ```typescript
 export interface Post {
     userId: number
@@ -54,7 +74,6 @@ export interface Post {
     completed: boolean
 }
 const post_url = 'https://jsonplaceholder.typicode.com/posts'
-
 export function Header(){
     const [state,fetchState] = useFetchRequest<Post[]>(true, 'GET', post_url)
     return <div>
@@ -62,7 +81,6 @@ export function Header(){
         <input type="button" value="Refresh" onClick={()=> fetchState(undefined)}/>
     </div>
 }
-
 export function App() {
     const [state] = useFetchRequest<Post[]>(false, 'GET', post_url)
     console.log(state)
