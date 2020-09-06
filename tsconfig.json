@@ -15,7 +15,9 @@
     "noUnusedLocals": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+
   },
-  "exclude": ["dist","src/react-use-fetch/src/*.tsx","src/react-redux-fetch/src/*.ts"]
+  "exclude": ["dist","src/react-redux-fetch"]
 }

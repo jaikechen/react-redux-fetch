@@ -40,27 +40,53 @@ ReactDOM.render(
 ```
 
 ### Examples
+suppose you want display posts from https://jsonplaceholder.typicode.com/posts'
+you want use 2 components to display the result
+- Header component displays counts and a refresh button
+- App Component displays post title list.
+
+With r2fetch managing states, the 2 components programming is simple
 ```typescript
-    const [state,fetchState] = useFetchRequest<Post[]>(true, 'GET', 'posts')
+export interface Post {
+    userId: number
+    id: number
+    title: string
+    completed: boolean
+}
+const post_url = 'https://jsonplaceholder.typicode.com/posts'
+
+export function Header(){
+    const [state,fetchState] = useFetchRequest<Post[]>(true, 'GET', post_url)
+    return <div>
+        {state?.result?.length}
+        <input type="button" value="Refresh" onClick={()=> fetchState(undefined)}/>
+    </div>
+}
+
+export function App() {
+    const [state] = useFetchRequest<Post[]>(false, 'GET', post_url)
+    console.log(state)
     let Result 
     switch (state?.status) {
         case 'Succeed':
-            Result = <div><input type="button" value="Refresh" onClick={()=> fetchState(undefined)}/>
+            Result = <div>
                 {
-                    state.result?.map(x => (<div>
-                        <div>{x.title}</div>
-                    </div>)
+                    state.result?.map(x => (
+                        <div key={x.id}>{x.title}</div>
+                    )
                     )
                 }
             </div>
             break;
         case 'Fail':
             Result = <div>{JSON.stringify(state.error)}</div>
+            break;
         default:
             Result = <div>Loading</div>
             break;
     }
-    return <Fragment>{Result}</Fragment>
+  return  <Fragment><Header/> {Result} </Fragment>
+}
 ```
 ### License
 react-use-fetch-ts has been released under the [zlib/libpng](https://github.com/Lusito/react-use-fetch-ts/blob/master/LICENSE) license, meaning you
