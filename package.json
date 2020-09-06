@@ -1,0 +1,48 @@
+{
+  "name": "r2fetch",
+  "version": "0.0.1",
+  "description": "r2 mean react-redux, this is a react hook use redux to manage state",
+  "keywords": [
+    "react",
+    "fetch",
+    "hooks",
+    "state",
+    "redux"
+  ],
+  "homepage": "https://github.com/jaikechen/react-redux-fetch",
+  "bugs": {
+    "url": "https://github.com/jaikechen/react-redux-fetch/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jaikechen/react-redux-fetch.git"
+  },
+  "license": "Zlib",
+  "author": "Jaike Chen",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "build": "rimraf dist && tsc"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.25",
+    "@types/react-redux": "^7.1.9",
+    "react": "^16.13.1",
+    "react-redux": "^7.2.1",
+    "redux": "^4.0.5",
+    "reselect": "^4.0.0",
+    "rimraf": "^3.0.2",
+    "sort-package-json": "^1.40.0",
+    "typescript": "^3.8.3"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "react-redux": "^7.2.1",
+    "redux": "^4.0.5",
+    "reselect": "^4.0.0"
+  }
+  
+}
