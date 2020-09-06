@@ -25,10 +25,10 @@ function getResult(text: string) {
 }
 
 function getError(text: string) {
+  
   let error = text
   try {
     let json = JSON.parse(text)
-    console.log(json)
     error = json.message ?? json.error ?? text
   } catch{
   }
@@ -55,9 +55,18 @@ export const fetchMiddleware = ({ dispatch }: any) => (next: any) => async (acti
           result = getResult(text)
         }
         else {
-          error = getError(text)
+          switch (response.status){
+            case 404:{
+              error = "url not found"
+              break
+            }
+            default:{
+              error = getError(text)
+            }
+          }
         }
       } catch (err) {
+        console.log(err)
         error = err
       }
 

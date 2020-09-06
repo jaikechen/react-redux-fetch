@@ -7,16 +7,19 @@ export interface Post {
     title: string
     completed: boolean
 }
+const post_url = 'https://jsonplaceholder.typicode.com/posts111'
 
 export function Header(){
-    const [state,fetchState] = useFetchRequest<Post[]>(false, 'GET', 'https://jsonplaceholder.typicode.com/posts')
+    const [state,fetchState] = useFetchRequest<Post[]>(true, 'GET', post_url)
     return <div>
         {state?.result?.length}
         <input type="button" value="Refresh" onClick={()=> fetchState(undefined)}/>
     </div>
 }
+
 export function App() {
-    const [state] = useFetchRequest<Post[]>(true, 'GET', 'posts')
+    const [state] = useFetchRequest<Post[]>(false, 'GET', post_url)
+    console.log(state)
     let Result 
     switch (state?.status) {
         case 'Succeed':
@@ -31,6 +34,7 @@ export function App() {
             break;
         case 'Fail':
             Result = <div>{JSON.stringify(state.error)}</div>
+            break;
         default:
             Result = <div>Loading</div>
             break;
