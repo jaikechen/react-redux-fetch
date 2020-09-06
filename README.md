@@ -106,6 +106,3 @@ export function App() {
   return  <Fragment><Header/> {Result} </Fragment>
 }
 ```
-### License
-react-use-fetch-ts has been released under the [zlib/libpng](https://github.com/Lusito/react-use-fetch-ts/blob/master/LICENSE) license, meaning you
-can use it free of charge, without strings attached in commercial and non-commercial projects. Credits are appreciated but not mandatory.
