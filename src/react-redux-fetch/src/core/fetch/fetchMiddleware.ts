@@ -1,5 +1,4 @@
 import { FetchActionTypes, FetchRequest } from "./fetchActions"
-const baseUrl = 'https://jsonplaceholder.typicode.com/'
 const buildOption = async (action: FetchRequest) => {
   const { method, requireToken } = action
   const headers: any = { 'Content-Type': 'application/json' }
@@ -11,7 +10,6 @@ const buildOption = async (action: FetchRequest) => {
   }
   if (requireToken) {
     //put token to header here
-    
   }
   return option
 }
@@ -41,7 +39,6 @@ export const fetchMiddleware = ({ dispatch }: any) => (next: any) => async (acti
   switch (action.type) {
     case FetchActionTypes.FetchRequest: {
       const { url, onSuccess, onError, onLoading } = action
-      const fullUrl = baseUrl + url
       let error: any
       let result: any
       try {
@@ -52,7 +49,7 @@ export const fetchMiddleware = ({ dispatch }: any) => (next: any) => async (acti
           })
         }
         const option = await buildOption(action)
-        const response = await fetch(fullUrl, option)
+        const response = await fetch(url, option)
         const text = await response.text()
         if (response.ok) {
           result = getResult(text)
