@@ -14,7 +14,7 @@ setGetTokenHook(()=>'my token')
 
 const post_url= 'posts'
 export function Header(){
-    const [state,fetchState] = useFetchRequest<Post[]>(true, 'GET', post_url)
+    const [state,fetchState] = useFetchRequest<Post[]>(true, 'GET', post_url,true)
     return <div>
         {state?.result?.length}
         <input type="button" value="Refresh" onClick={()=> fetchState(undefined)}/>

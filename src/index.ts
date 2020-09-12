@@ -1,4 +1,4 @@
-export { fetchReducer } from './react-redux-fetch/src/core/fetch/fetchReducer';
-export { fetchMiddleware } from './react-redux-fetch/src/core/fetch/fetchMiddleware';
-export {useFetchRequest} from './react-redux-fetch/src/core/fetch/useFetchRequest'
-export {rootStore} from './react-redux-fetch/src/core/store/store'
+export {fetchReducer} from './app/src/core/fetch/fetchReducer';
+export {fetchMiddleware} from './app/src/core/fetch/fetchMiddleware';
+export {useFetchRequest, setGetTokenHook, setBaseUrl, setSignInUrl} from './app/src/core/fetch/useFetchRequest'
+export {rootStore} from './app/src/core/store/store'
