@@ -14,8 +14,6 @@ export const setSignInUrl = (url:string) =>signInUrl = url
 let getTokenHook :any
 export const setGetTokenHook = (cb:(()=>string)) => getTokenHook = cb
 
-
-
 export function useFetchRequest<T> (dispatchInUseEffect:boolean  ,method:FetchMethods,url:string,requireToken=false, initData:any=undefined) {
   url = baseUrl + url
   const history = useHistory();
@@ -53,5 +51,5 @@ export function useFetchRequest<T> (dispatchInUseEffect:boolean  ,method:FetchMe
   return [
     useSelector((state:any) => selectFetchState(state,key)),
     (data:any) => myDispatch(data)
-  ] as [fetchState<T>, (postDate:any)=>{} ]
+  ] as [fetchState<T>, (data:any)=>{} ]
 }

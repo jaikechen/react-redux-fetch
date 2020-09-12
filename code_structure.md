@@ -2,9 +2,9 @@
 - package.json                      - for publish npm package
 - tsconfig.json                     - need to add     ```"skipLibCheck": true, ```, ```"exclude": ["dist","src/react-redux-fetch"]```
 - src/index.ts                      - export everything need to expose to user
-- src/react-redux-fetch             - a normal react app created by create react app
-- src/react-redux-fetch/src/core    - source code for package
-- src/react-redux-fetch/.env        - need to add ```SKIP_PREFLIGHT_CHECK=true```
+- src/app                           - a normal react app created by create react app
+- src/app/src/core                  - source code for package
+- src/app/.env                      - need to add ```SKIP_PREFLIGHT_CHECK=true```
 
 # to test the package source code
 ```cd src/react-redux-fetch```
