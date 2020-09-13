@@ -1,6 +1,6 @@
 {
   "name": "r2fetch",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "r2 mean react-redux, this is a react hook use redux to manage state",
   "keywords": [
     "react",
@@ -44,5 +44,4 @@
     "redux": "^4.0.5",
     "reselect": "^4.0.0"
   }
-  
 }

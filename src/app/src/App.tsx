@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
-import { setBaseUrl, setGetTokenHook, setSignInUrl, useFetchRequest } from 'core/fetch/useFetchRequest'
+//import { setBaseUrl, setGetTokenHook, setSignInUrl, useFetchRequest } from 'core/fetch/useFetchRequest'
 import {  BrowserRouter as Router, Route, Switch} from 'react-router-dom'
-//import {useFetchRequest} from 'r2fetch'
+import {useFetchRequest, setBaseUrl,setSignInUrl,setGetTokenHook} from 'r2fetch'
 export interface Post {
     userId: number
     id: number
@@ -10,7 +10,7 @@ export interface Post {
 }
 setBaseUrl('https://jsonplaceholder.typicode.com/')
 setSignInUrl('/login')
-setGetTokenHook(()=>'my token')
+setGetTokenHook(()=>'')
 
 const post_url= 'posts'
 export function Header(){

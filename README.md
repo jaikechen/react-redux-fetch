@@ -43,7 +43,13 @@ ReactDOM.render(
 
 ## useFetchRequest
 ``` typescript
-export function useFetchRequest<T> (dispatchInUseEffect:boolean  ,method:FetchMethods,url:string,requireToken=false, initData:any=undefined) {
+export function useFetchRequest<T> (
+    dispatchInUseEffect:boolean,
+    method:FetchMethods,
+    url:string,
+    requireToken=false, 
+    initData:any=undefined
+    ) 
 ```
 just like useState, the hook returns an array, the first element is the state of the hook, the second element is a function, call the function to dispatch another request.
 ``` typescript
@@ -53,7 +59,7 @@ the hook save the state of calling different web APIs separately, it differentia
 - you can call the hook multiple times for different web api   
 - if you call same webapi in different components, the state is shared between the components.
 
-## setBaseUrl
+## [optional] setBaseUrl 
 ``` typescript
 export const setBaseUrl = (url:string) => baseUrl =  url
 ```
@@ -118,10 +124,20 @@ export function App() {
 }
 ```
 # bearer token 
+## setSignInUrl and setGetTokenHook
+
+``` typescript
+export declare const setGetTokenHook: (cb: (() => string)) => () => string;
+export declare const setSignInUrl: (url: string) => string;
+```
+if your want add 'Authorization: Bearer token' to the fetch request header, you can write a callback function which can return the token, then call
+setGetTokenHook, pass your callback function as parameter. If the callback function didn't return a token, then when you call useFetchRequest, 
+the status will be error. If you have call setSignInUrl, then the hook will redirect to the url
+signInUrl and getTokenHook  are singleton, you only need to call setSignUrl or setGetTokenHook once.
+## example
 to ask the hook to add bearer token to header, 
 ``` typescript
 setSignInUrl('/login')
 setGetTokenHook(()=>'my token'/* e.g. get token from local storage*/)
 ``` 
-signInUrl and getTokenHook  are singleton, you only need to call setSignUrl or setGetTokenHook once.
-then when you call useFetchRequest, set the parameter requireToken to true
+when you call useFetchRequest, set the parameter requireToken to true
