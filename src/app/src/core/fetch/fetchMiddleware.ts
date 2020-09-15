@@ -4,7 +4,7 @@ export const fetchMiddleware = ({ dispatch }: any) => (next: any) => async (acti
     case FetchActionTypes.FetchRequest: {
       const { url, onSuccess, onError, onLoading } = action
       let error: any
-      let result: any
+      let result: any = false
       try {
         if (onLoading) {
           dispatch({
@@ -33,7 +33,7 @@ export const fetchMiddleware = ({ dispatch }: any) => (next: any) => async (acti
         error = err.message
       }
       dispatch({
-        type: result ? onSuccess : onError,
+        type: result!==false ? onSuccess : onError,
         payload: {
           ...action.payload,
           error, result, url
